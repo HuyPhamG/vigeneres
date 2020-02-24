@@ -1,5 +1,6 @@
 # vigenere
 Project: Vigenère Cipher
+
 Description:  
 - program that encrypts the alphabetic letters in a file using the Vigenère cipher. 
 - program will take two command line parameters containing the names of the file storing the encryption keyand the file to be encrypted.
