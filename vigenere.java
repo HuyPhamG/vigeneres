@@ -27,10 +27,10 @@ public class vigenere
     String string;
     String string2; 
     // adding text into strings
-    while ((string = br.readLine()) != null) 
+    while ((string = br.readLine()) != null && buffers.length() < 512) 
       buffers = buffers + string;
     
-    while ((string2 = br2.readLine()) != null) 
+    while ((string2 = br2.readLine()) != null && buffers2.length() < 512) 
       buffers2 = buffers2 + string2;
     
     // closing reader
@@ -69,7 +69,31 @@ public class vigenere
     // 512 of key
     if (lowString.length() == 512)
       return lowString;
+    // if key is larger than 512
+    if (lowString.length() > 512)
+    {
+      lowString = lowString.substring(0, 512);
+    }
+    
+    // echo key
+    // 80 letters per line
+    System.out.println("Vigenere Key:");
+    System.out.println();
+    int counter = 0;
+    while (lowString.length() - counter > 80)
+    {
+      String keyprint = lowString.substring(counter, counter+80);
+      System.out.println(keyprint);
+      counter = counter + 80;
+       
+    }
+
+    String keyprint = lowString.substring(counter);
+    System.out.println(keyprint);
+    System.out.println();
+    System.out.println();
     // filling up key
+    // preparing for ciphertext
     while ((lowString.length()) < 512)
     {
       for (int i = 0; i < originalLen; i++)
@@ -82,43 +106,36 @@ public class vigenere
   // cipher 
   public static void cipher(String key, String str)
   {
-    // echo key
-    // 80 letters per line
-    System.out.println("Vigenere Key:");
-    System.out.println();
-    int counter = 0;
-    while (key.length() - counter > 80)
-    {
-      String keyprint = key.substring(counter, counter+80);
-      System.out.println(keyprint);
-      counter = counter + 80;
-        
-    }
-    String keyprint = key.substring(counter);
-    System.out.println(keyprint);
-    System.out.println();
-
-    // echo text
-    // 80 letters per line
-    System.out.println("Plaintext:");
-    System.out.println();
-    counter = 0;
-    while (str.length() - counter > 80)
-    {
-      String textprint = str.substring(counter, counter+80);
-      System.out.println(textprint);
-      counter = counter + 80;
-        
-    }
-    String textprint = str.substring(counter);
-    System.out.println(textprint);
-    System.out.println();
 
     // calling the key and text edit 
     String text = textedit(str);
     String bigkey = keyedit(key);
     String finals = "";
     int c = 0;
+    // if keu is larger than 512
+    if (text.length() > 512)
+    {
+      text = text.substring(0, 512);
+    }
+    // echo text
+    // 80 letters per line
+    System.out.println("Plaintext:");
+    System.out.println();
+    int counter = 0;
+    
+    while (text.length() - counter > 80)
+    {
+      String textprint = text.substring(counter, counter+80);
+      System.out.println(textprint);
+      counter = counter + 80;
+        
+    }
+    String textprint = text.substring(counter);
+    System.out.println(textprint);
+    System.out.println();
+    System.out.println();
+
+    
 
     // applying the cipher
     for (int i = 0; i < 512; i++)
